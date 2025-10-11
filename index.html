@@ -53,7 +53,7 @@
   </div>
 </div>
 
-<!-- LOGIN (hidden until disclaimer accepted) -->
+<!-- LOGIN -->
 <div id="login" class="login-wrap" aria-hidden="true" style="display:none">
   <div class="login-card" role="dialog" aria-label="Site login">
     <h2>Protected Access</h2>
@@ -88,72 +88,155 @@
 
   <!-- GAD -->
   <div id="gadCard" class="card" aria-hidden="false">
-    <!-- existing GAD content -->
+    <h3>GAD-7 Note Builder</h3>
+    <label>Patient Name:</label>
+    <input type="text" id="gad_patientName" placeholder="Enter patient name">
+    <div class="row" style="margin-top:6px">
+      <div class="col-1">
+        <label>Age:</label>
+        <input type="number" id="gad_age" min="0" max="120" placeholder="Age">
+      </div>
+      <div class="col-flex">
+        <label>Date:</label>
+        <input type="date" id="gad_date">
+      </div>
+    </div>
+    <label>GAD-7 Score:</label>
+    <input type="number" id="gad_score" min="0" max="21" placeholder="0–21">
+    <label>Severity: <span class="small">(auto-updates from score — override okay)</span></label>
+    <select id="gad_severity">
+      <option value="Minimal/None">Minimal/None (0–4)</option>
+      <option value="Mild">Mild (5–9)</option>
+      <option value="Moderate">Moderate (10–14)</option>
+      <option value="Severe">Severe (15–21)</option>
+    </select>
+    <label>Provider (Name & Credentials):</label>
+    <input type="text" id="gad_provider" placeholder="Enter provider name & credentials">
+    <label>Patient Report:</label>
+    <textarea id="gad_report" placeholder="Enter patient report..."></textarea>
+    <label>Plan:</label>
+    <textarea id="gad_plan" placeholder="Enter plan..."></textarea>
+    <div class="controls" style="margin-top:12px">
+      <button id="gad_generate" class="primary">Generate PDF</button>
+      <button id="gad_preview" class="ghost">Preview Text</button>
+    </div>
+    <pre id="gad_output"></pre>
   </div>
 
   <!-- PHQ -->
   <div id="phqCard" class="card" style="margin-top:18px;display:none" aria-hidden="true">
-    <!-- existing PHQ content -->
+    <h3>PHQ-A Note Builder</h3>
+    <label>Patient Name:</label>
+    <input type="text" id="phq_patientName" placeholder="Enter patient name">
+    <div class="row" style="margin-top:6px">
+      <div class="col-1">
+        <label>Age:</label>
+        <input type="number" id="phq_age" min="0" max="120" placeholder="Age">
+      </div>
+      <div class="col-flex">
+        <label>Date:</label>
+        <input type="date" id="phq_date">
+      </div>
+    </div>
+    <label>PHQ-9-A Score:</label>
+    <input type="number" id="phq_score" min="0" max="27" placeholder="0–27">
+    <label>Severity: <span class="small">(auto-updates from score — override okay)</span></label>
+    <select id="phq_severity">
+      <option value="Minimal/None">Minimal/None (0–4)</option>
+      <option value="Mild">Mild (5–9)</option>
+      <option value="Moderate">Moderate (10–14)</option>
+      <option value="Moderately Severe">Moderately Severe (15–19)</option>
+      <option value="Severe">Severe (20–27)</option>
+    </select>
+    <label>Provider (Name & Credentials):</label>
+    <input type="text" id="phq_provider" placeholder="Enter provider name & credentials">
+    <label>Patient Report:</label>
+    <textarea id="phq_report" placeholder="Enter patient report..."></textarea>
+    <label>Plan:</label>
+    <textarea id="phq_plan" placeholder="Enter plan..."></textarea>
+    <div class="controls" style="margin-top:12px">
+      <button id="phq_generate" class="primary">Generate PDF</button>
+      <button id="phq_preview" class="ghost">Preview Text</button>
+    </div>
+    <pre id="phq_output"></pre>
   </div>
 
   <!-- Doctor Note -->
   <div id="doctorCard" class="card" style="margin-top:18px;display:none" aria-hidden="true">
-    <!-- existing Doctor Note content -->
+    <h3>Doctor's Note Builder</h3>
+    <label>Patient Name:</label>
+    <input type="text" id="doc_patientName" placeholder="Enter patient name">
+    <div class="row" style="margin-top:6px">
+      <div class="col-1">
+        <label>Age:</label>
+        <input type="number" id="doc_age" min="0" max="120" placeholder="Age">
+      </div>
+      <div class="col-flex">
+        <label>Date of Visit:</label>
+        <input type="date" id="doc_date">
+      </div>
+    </div>
+    <label>Provider (Name & Credentials):</label>
+    <input type="text" id="doc_provider" placeholder="Enter provider name & credentials">
+    <label>Illness / Diagnosis:</label>
+    <input type="text" id="doc_illness" placeholder="Enter illness">
+    <div class="row" style="margin-top:6px">
+      <div class="col-1">
+        <label>Start Date:</label>
+        <input type="date" id="doc_start">
+      </div>
+      <div class="col-1">
+        <label>End Date:</label>
+        <input type="date" id="doc_end">
+      </div>
+      <div class="col-1">
+        <label>Return Date:</label>
+        <input type="date" id="doc_return">
+      </div>
+    </div>
+    <div class="controls" style="margin-top:12px">
+      <button id="doc_generate" class="primary">Generate PDF</button>
+      <button id="doc_preview" class="ghost">Preview Text</button>
+    </div>
+    <pre id="doc_output"></pre>
   </div>
 
-  <!-- Hospital Visit Summary -->
+  <!-- Hospital Visit -->
   <div id="hospitalCard" class="card" style="margin-top:18px;display:none" aria-hidden="true">
-    <h3 style="margin:0 0 6px">Hospital Visit Summary</h3>
-
-    <label>Name:</label>
-    <input type="text" id="hosp_name" placeholder="Patient Name">
-    <label>DOB:</label>
-    <input type="date" id="hosp_dob">
-    <label>Gender Identity:</label>
-    <input type="text" id="hosp_gender" placeholder="Gender Identity">
-    <label>Scheduled Visits:</label>
-    <input type="text" id="hosp_scheduled">
-    <label>Date of Last Physical:</label>
-    <input type="date" id="hosp_lastPhysical">
-    <label>Visit Summary for Doctor:</label>
-    <input type="text" id="hosp_doctor">
-    <label>Reason for Visit:</label>
-    <textarea id="hosp_reason"></textarea>
+    <h3>Hospital Visit Summary</h3>
+    <label>Name:</label><input type="text" id="hosp_name" placeholder="Patient Name">
+    <label>DOB:</label><input type="date" id="hosp_dob">
+    <label>Gender Identity:</label><input type="text" id="hosp_gender" placeholder="Gender Identity">
+    <label>Scheduled Visits:</label><input type="text" id="hosp_scheduled">
+    <label>Date of Last Physical:</label><input type="date" id="hosp_lastPhysical">
+    <label>Visit Summary for Doctor:</label><input type="text" id="hosp_doctor">
+    <label>Reason for Visit:</label><textarea id="hosp_reason"></textarea>
 
     <h4>Vitals</h4>
     <div class="row">
       <div class="col-1"><label>Height:</label><input type="text" id="hosp_height"></div>
       <div class="col-1"><label>Weight:</label><input type="text" id="hosp_weight"></div>
-      <div class="col-1"><label>Temperature:</label><input type="text" id="hosp_temp"></div>
+      <div class="col-1"><label>Temp:</label><input type="text" id="hosp_temp"></div>
     </div>
     <div class="row">
-      <div class="col-1"><label>Blood Pressure:</label><input type="text" id="hosp_bp"></div>
+      <div class="col-1"><label>BP:</label><input type="text" id="hosp_bp"></div>
       <div class="col-1"><label>Pulse:</label><input type="text" id="hosp_pulse"></div>
-      <div class="col-1"><label>Respiration:</label><input type="text" id="hosp_resp"></div>
+      <div class="col-1"><label>Resp:</label><input type="text" id="hosp_resp"></div>
     </div>
 
     <h4>Labs</h4>
-    <label>Status:</label>
-    <input type="text" id="hosp_labStatus" placeholder="Completed / Pending">
-    <label>Result:</label>
-    <input type="text" id="hosp_labResult1" placeholder="Result 1">
-    <label>Facility:</label>
-    <input type="text" id="hosp_labFacility1" value="Grey Sloan University Laboratory">
-    <label>Result:</label>
-    <input type="text" id="hosp_labResult2" placeholder="Result 2">
-    <label>Facility:</label>
-    <input type="text" id="hosp_labFacility2" value="Grey Sloan University Laboratory">
+    <label>Status:</label><input type="text" id="hosp_labStatus" placeholder="Completed / Pending">
+    <label>Result 1:</label><input type="text" id="hosp_labResult1"><label>Facility 1:</label><input type="text" id="hosp_labFacility1" value="Grey Sloan University Laboratory">
+    <label>Result 2:</label><input type="text" id="hosp_labResult2"><label>Facility 2:</label><input type="text" id="hosp_labFacility2" value="Grey Sloan University Laboratory">
 
-    <label>Plan:</label>
-    <textarea id="hosp_plan"></textarea>
-    <label>Diagnosis:</label>
-    <textarea id="hosp_diag">Based on the clinical evaluation and available investigations, the patient’s condition has been thoroughly assessed. Appropriate diagnosis has been made, and a management plan has been outlined accordingly.</textarea>
+    <label>Diagnosis:</label><textarea id="hosp_diag">Based on the clinical evaluation and available investigations, the patient’s condition has been thoroughly assessed. Appropriate diagnosis has been made, and a management plan has been outlined accordingly.</textarea>
+    <label>Plan:</label><textarea id="hosp_plan"></textarea>
 
     <div class="controls" style="margin-top:12px">
-      <button id="hosp_generate" class="primary">Generate PDF</button>
       <button id="hosp_preview" class="ghost">Preview Text</button>
+      <button id="hosp_generate" class="primary">Generate PDF</button>
     </div>
-    <pre id="hosp_output"></pre>
+    <pre id="hosp_output" style="margin-top:12px;"></pre>
   </div>
 
 </div>
@@ -161,10 +244,10 @@
 <script>
 /* ---------- Accounts & Access ---------- */
 const ACCOUNTS = {
-  'nmccgsuh': { pw:'15358', provider: 'Dr. Nicolas McCarthy MD PhD FACS', access: {gad:true, phq:true, doc:true, hospital:true} },
-  'mjohn':    { pw:'mj15358', provider: 'Dr. Martha Johnson DO', access: {gad:true, phq:true, doc:true, hospital:true} },
-  'psych':    { pw:'psychgsuh', provider: null, access: {gad:true, phq:true, doc:false, hospital:false} },
-  'doctor':   { pw:'doctor', provider: null, access: {gad:false, phq:false, doc:true, hospital:true} }
+  'nmccgsuh': { pw:'15358', provider: 'Dr. Nicolas McCarthy MD PhD FACS', access: {gad:true, phq:true, doc:true, hosp:true} },
+  'mjohn':    { pw:'mj15358', provider: 'Dr. Martha Johnson DO', access: {gad:true, phq:true, doc:true, hosp:true} },
+  'psych':    { pw:'psychgsuh', provider: null, access: {gad:true, phq:true, doc:false, hosp:false} },
+  'doctor':   { pw:'doctor', provider: null, access: {gad:false, phq:false, doc:true, hosp:true} }
 };
 const FORGOT_CODE = 'gsuhdoctor';
 
@@ -189,196 +272,91 @@ const phqCard = document.getElementById('phqCard');
 const doctorCard = document.getElementById('doctorCard');
 const hospitalCard = document.getElementById('hospitalCard');
 
-/* ----- Disclaimer flow ----- */
+/* ----- Tab switching ----- */
+function hideAllCards(){ gadCard.style.display='none'; phqCard.style.display='none'; doctorCard.style.display='none'; hospitalCard.style.display='none'; }
+function deactivateAllButtons(){ btnGAD.classList.remove('active'); btnPHQ.classList.remove('active'); btnDoctor.classList.remove('active'); btnHospital.classList.remove('active'); }
+
+btnGAD.addEventListener('click', ()=>{ hideAllCards(); gadCard.style.display='block'; deactivateAllButtons(); btnGAD.classList.add('active'); });
+btnPHQ.addEventListener('click', ()=>{ hideAllCards(); phqCard.style.display='block'; deactivateAllButtons(); btnPHQ.classList.add('active'); });
+btnDoctor.addEventListener('click', ()=>{ hideAllCards(); doctorCard.style.display='block'; deactivateAllButtons(); btnDoctor.classList.add('active'); });
+btnHospital.addEventListener('click', ()=>{ hideAllCards(); hospitalCard.style.display='block'; deactivateAllButtons(); btnHospital.classList.add('active'); });
+
+/* ----- Disclaimer & Login ----- */
 acceptDisclaimer.addEventListener('click', ()=>{
-  disclaimer.style.display = 'none';
-  loginWrap.style.display = 'flex';
-  loginWrap.setAttribute('aria-hidden','false');
-  loginUser.focus();
+  disclaimer.style.display='none';
+  loginWrap.style.display='flex';
 });
-
-/* ----- Login / Session ----- */
-function showLogin(){ loginWrap.style.display='flex'; app.style.display='none'; loginWrap.setAttribute('aria-hidden','false'); loginUser.focus(); }
-function showAppFor(user){
-  loginWrap.style.display='none'; app.style.display='block'; loginWrap.setAttribute('aria-hidden','true');
-  const access = ACCOUNTS[user].access;
-  btnGAD.style.display = access.gad ? 'inline-block' : 'none';
-  btnPHQ.style.display = access.phq ? 'inline-block' : 'none';
-  btnDoctor.style.display = access.doc ? 'inline-block' : 'none';
-  btnHospital.style.display = access.hospital ? 'inline-block' : 'none';
-  if(access.gad) selectTab('gad');
-  else if(access.phq) selectTab('phq');
-  else if(access.doc) selectTab('doc');
-  else if(access.hospital) selectTab('hospital');
-  autofillProviderFor(user);
-}
-
-function authenticate(){
-  const u = (loginUser.value||'').trim();
-  const p = (loginPass.value||'').trim();
-  if(!u){ alert('Enter username'); loginUser.focus(); return; }
-  const acct = ACCOUNTS[u];
-  if(acct && acct.pw === p){
-    sessionStorage.setItem('psych_user', u);
-    loginUser.value=''; loginPass.value='';
-    showAppFor(u);
-  } else {
-    alert('Incorrect username or password.');
-  }
-}
-
-function forgotFlow(){
-  const u = (loginUser.value||'').trim();
-  if(!u){ alert('Enter username first'); loginUser.focus(); return; }
-  if(!ACCOUNTS[u]){ alert('Unknown username'); return; }
-  const ans = prompt('Code?');
-  if(ans === null) return;
-  if(ans === FORGOT_CODE){
-    sessionStorage.setItem('psych_user', u);
-    loginUser.value=''; loginPass.value='';
-    showAppFor(u);
-  } else alert('Incorrect code.');
-}
-
-function autofillProviderFor(username){
-  const mapping = ACCOUNTS[username];
-  if(!mapping) return;
-  const prov = mapping.provider;
-  const gprov = document.getElementById('gad_provider');
-  const pprov = document.getElementById('phq_provider');
-  const dprov = document.getElementById('doc_provider');
-  if(prov){
-    if(gprov) gprov.value = prov;
-    if(pprov) pprov.value = prov;
-    if(dprov) dprov.value = prov;
-  } else {
-    if(gprov) gprov.value = '';
-    if(pprov) pprov.value = '';
-    if(dprov) dprov.value = '';
-  }
-}
-
-// Event wiring
-loginBtn.addEventListener('click', authenticate);
-forgotLink.addEventListener('click', forgotFlow);
-loginPass.addEventListener('keydown', e=>{ if(e.key==='Enter') authenticate(); });
-loginUser.addEventListener('keydown', e=>{ if(e.key==='Enter') loginPass.focus(); });
-
+forgotLink.addEventListener('click', ()=>{ alert(`Forgot code is: ${FORGOT_CODE}`); });
+loginBtn.addEventListener('click', ()=>{
+  const user = loginUser.value.trim();
+  const pass = loginPass.value.trim();
+  if(user in ACCOUNTS && ACCOUNTS[user].pw === pass){
+    loginWrap.style.display='none';
+    app.style.display='block';
+    alert(`Welcome ${user}!`);
+  } else { alert('Invalid username or password'); }
+});
 logoutBtn.addEventListener('click', ()=>{
-  sessionStorage.removeItem('psych_user');
-  showLogin();
+  app.style.display='none';
+  loginWrap.style.display='flex';
 });
 
-/* ----- Tabs ----- */
-function selectTab(which){
-  btnGAD.classList.remove('active'); 
-  btnPHQ.classList.remove('active'); 
-  btnDoctor.classList.remove('active'); 
-  btnHospital.classList.remove('active');
-
-  gadCard.style.display='none'; 
-  phqCard.style.display='none'; 
-  doctorCard.style.display='none'; 
-  hospitalCard.style.display='none';
-
-  if(which==='gad'){ btnGAD.classList.add('active'); gadCard.style.display='block'; }
-  if(which==='phq'){ btnPHQ.classList.add('active'); phqCard.style.display='block'; }
-  if(which==='doc'){ btnDoctor.classList.add('active'); doctorCard.style.display='block'; }
-  if(which==='hospital'){ btnHospital.classList.add('active'); hospitalCard.style.display='block'; }
-}
-btnGAD.addEventListener('click', ()=> selectTab('gad'));
-btnPHQ.addEventListener('click', ()=> selectTab('phq'));
-btnDoctor.addEventListener('click', ()=> selectTab('doc'));
-btnHospital.addEventListener('click', ()=> selectTab('hospital'));
-
-/* ----- PDF helper ----- */
-function writeNoteToPDF(doc, noteText, filenamePrefix){
+/* ---------- PDF/Preview Helpers ---------- */
+function makePDF(title,text){
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF();
   doc.setFontSize(12);
-  let y = 12;
-  const lineHeight = 7;
-  const leftMargin = 12;
-  noteText.split("\n").forEach(line=>{
-    const wrapped = doc.splitTextToSize(line, 180);
-    doc.text(wrapped, leftMargin, y);
-    y += lineHeight * wrapped.length;
-    if(y > 280){ doc.addPage(); y = 12; }
-  });
-  const safe = filenamePrefix.replace(/[^a-z0-9_\-]/gi,'_').slice(0,40) || 'note';
-  doc.save(`${safe}.pdf`);
+  doc.text(title,14,14);
+  const split = doc.splitTextToSize(text,180);
+  doc.text(split,14,22);
+  doc.save(`${title.replace(/\s+/g,'_')}.pdf`);
 }
 
-/* ----- Hospital Visit PDF / Preview ----- */
+/* ---------- Hospital Visit PDF/Preview ---------- */
 function getHospitalNote(){
-  const name = document.getElementById('hosp_name').value || "[Name]";
-  const dob = document.getElementById('hosp_dob').value || "[DOB]";
-  const gender = document.getElementById('hosp_gender').value || "[Gender]";
-  const scheduled = document.getElementById('hosp_scheduled').value || "[Scheduled Visits]";
-  const lastPhysical = document.getElementById('hosp_lastPhysical').value || "[Last Physical]";
-  const doctor = document.getElementById('hosp_doctor').value || "[Doctor]";
-  const reason = document.getElementById('hosp_reason').value || "[Reason for Visit]";
-  const height = document.getElementById('hosp_height').value || "[Height]";
-  const weight = document.getElementById('hosp_weight').value || "[Weight]";
-  const temp = document.getElementById('hosp_temp').value || "[Temp]";
-  const bp = document.getElementById('hosp_bp').value || "[BP]";
-  const pulse = document.getElementById('hosp_pulse').value || "[Pulse]";
-  const resp = document.getElementById('hosp_resp').value || "[Respiration]";
-  const labStatus = document.getElementById('hosp_labStatus').value || "[Lab Status]";
-  const labR1 = document.getElementById('hosp_labResult1').value || "[Result1]";
-  const labF1 = document.getElementById('hosp_labFacility1').value || "[Facility1]";
-  const labR2 = document.getElementById('hosp_labResult2').value || "[Result2]";
-  const labF2 = document.getElementById('hosp_labFacility2').value || "[Facility2]";
-  const plan = document.getElementById('hosp_plan').value || "[Plan]";
-  const diag = document.getElementById('hosp_diag').value || "[Diagnosis]";
-  
   return `
 Hospital Visit Summary
 ====================
-Name: ${name}
-DOB: ${dob}
-Gender Identity: ${gender}
-Scheduled Visits: ${scheduled}
-Date of Last Physical: ${lastPhysical}
-Visit Summary for Doctor: ${doctor}
-Reason for Visit: ${reason}
+Name: ${document.getElementById('hosp_name').value || '[Name]'}
+DOB: ${document.getElementById('hosp_dob').value || '[DOB]'}
+Gender Identity: ${document.getElementById('hosp_gender').value || '[Gender]'}
+Scheduled Visits: ${document.getElementById('hosp_scheduled').value || '[Scheduled Visits]'}
+Date of Last Physical: ${document.getElementById('hosp_lastPhysical').value || '[Last Physical]'}
+Visit Summary for Doctor: ${document.getElementById('hosp_doctor').value || '[Visit Summary]'}
+Reason for Visit: ${document.getElementById('hosp_reason').value || '[Reason]'}
 
-Vitals:
-Height: ${height} | Weight: ${weight} | Temperature: ${temp}
-Blood Pressure: ${bp} | Pulse: ${pulse} | Respiration: ${resp}
+Vitals
+------
+Height: ${document.getElementById('hosp_height').value || '[Height]'}
+Weight: ${document.getElementById('hosp_weight').value || '[Weight]'}
+Temp: ${document.getElementById('hosp_temp').value || '[Temp]'}
+BP: ${document.getElementById('hosp_bp').value || '[BP]'}
+Pulse: ${document.getElementById('hosp_pulse').value || '[Pulse]'}
+Resp: ${document.getElementById('hosp_resp').value || '[Resp]'}
 
-Labs:
-Status: ${labStatus}
-Result1: ${labR1} | Facility: ${labF1}
-Result2: ${labR2} | Facility: ${labF2}
+Labs
+----
+Status: ${document.getElementById('hosp_labStatus').value || '[Status]'}
+Result 1: ${document.getElementById('hosp_labResult1').value || '[Result1]'} | Facility: ${document.getElementById('hosp_labFacility1').value}
+Result 2: ${document.getElementById('hosp_labResult2').value || '[Result2]'} | Facility: ${document.getElementById('hosp_labFacility2').value}
 
-Diagnosis:
-${diag}
+Diagnosis
+---------
+${document.getElementById('hosp_diag').value}
 
-Plan:
-${plan}
-  `.trim();
+Plan
+----
+${document.getElementById('hosp_plan').value}
+  `;
 }
 
 document.getElementById('hosp_preview').addEventListener('click', ()=>{
-  const note = getHospitalNote();
-  document.getElementById('hosp_output').textContent = note;
+  document.getElementById('hosp_output').textContent = getHospitalNote();
 });
-
 document.getElementById('hosp_generate').addEventListener('click', ()=>{
-  const doc = new jspdf.jsPDF();
-  writeNoteToPDF(doc, getHospitalNote(), "Hospital_Visit");
+  makePDF('Hospital Visit Summary',getHospitalNote());
 });
-
-/* ----- Restore session if exists ----- */
-const savedUser = sessionStorage.getItem('psych_user');
-if(savedUser && ACCOUNTS[savedUser]) showAppFor(savedUser);
-else showLogin();
-
 </script>
 
 </body>
 </html>
-
-
-
-
-
