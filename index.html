@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>Clinical Tools For Education</title>
 
-<!-- jsPDF -->
+<!-- jsPDF (UMD) -->
 <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
 
 <style>
@@ -53,7 +53,7 @@
   </div>
 </div>
 
-<!-- LOGIN -->
+<!-- LOGIN (hidden until disclaimer accepted) -->
 <div id="login" class="login-wrap" aria-hidden="true" style="display:none">
   <div class="login-card" role="dialog" aria-label="Site login">
     <h2>Protected Access</h2>
@@ -80,7 +80,6 @@
         <button id="btnGAD" class="active">GAD-7</button>
         <button id="btnPHQ">PHQ-A</button>
         <button id="btnDoctor">Doctor's Note</button>
-        <button id="btnHospital">Hospital Visit</button>
       </div>
       <button id="logout" class="logout">Log out</button>
     </div>
@@ -89,69 +88,129 @@
   <!-- GAD -->
   <div id="gadCard" class="card" aria-hidden="false">
     <h3 style="margin:0 0 6px">GAD-7 Note Builder</h3>
-    <!-- GAD form (unchanged) -->
-    ...
+    <label>Patient Name:</label>
+    <input type="text" id="gad_patientName" placeholder="Enter patient name">
+    <div class="row" style="margin-top:6px">
+      <div class="col-1">
+        <label>Age:</label>
+        <input type="number" id="gad_age" min="0" max="120" placeholder="Age">
+      </div>
+      <div class="col-flex">
+        <label>Date:</label>
+        <input type="date" id="gad_date">
+      </div>
+    </div>
+    <label>GAD-7 Score:</label>
+    <input type="number" id="gad_score" min="0" max="21" placeholder="0–21">
+    <label>Severity: <span class="small">(auto-updates from score — override okay)</span></label>
+    <select id="gad_severity">
+      <option value="Minimal/None">Minimal/None (0–4)</option>
+      <option value="Mild">Mild (5–9)</option>
+      <option value="Moderate">Moderate (10–14)</option>
+      <option value="Severe">Severe (15–21)</option>
+    </select>
+    <label>Provider (Name & Credentials):</label>
+    <input type="text" id="gad_provider" placeholder="Enter provider name & credentials">
+    <label>Patient Report:</label>
+    <textarea id="gad_report" placeholder="Enter patient report..."></textarea>
+    <label>Plan:</label>
+    <textarea id="gad_plan" placeholder="Enter plan..."></textarea>
+    <div class="controls" style="margin-top:12px">
+      <button id="gad_generate" class="primary">Generate PDF</button>
+      <button id="gad_preview" class="ghost">Preview Text</button>
+    </div>
+    <pre id="gad_output"></pre>
   </div>
 
   <!-- PHQ -->
   <div id="phqCard" class="card" style="margin-top:18px;display:none" aria-hidden="true">
     <h3 style="margin:0 0 6px">PHQ-A Note Builder</h3>
-    <!-- PHQ form (unchanged) -->
-    ...
+    <label>Patient Name:</label>
+    <input type="text" id="phq_patientName" placeholder="Enter patient name">
+    <div class="row" style="margin-top:6px">
+      <div class="col-1">
+        <label>Age:</label>
+        <input type="number" id="phq_age" min="0" max="120" placeholder="Age">
+      </div>
+      <div class="col-flex">
+        <label>Date:</label>
+        <input type="date" id="phq_date">
+      </div>
+    </div>
+    <label>PHQ-9-A Score:</label>
+    <input type="number" id="phq_score" min="0" max="27" placeholder="0–27">
+    <label>Severity: <span class="small">(auto-updates from score — override okay)</span></label>
+    <select id="phq_severity">
+      <option value="Minimal/None">Minimal/None (0–4)</option>
+      <option value="Mild">Mild (5–9)</option>
+      <option value="Moderate">Moderate (10–14)</option>
+      <option value="Moderately Severe">Moderately Severe (15–19)</option>
+      <option value="Severe">Severe (20–27)</option>
+    </select>
+    <label>Provider (Name & Credentials):</label>
+    <input type="text" id="phq_provider" placeholder="Enter provider name & credentials">
+    <label>Patient Report:</label>
+    <textarea id="phq_report" placeholder="Enter patient report..."></textarea>
+    <label>Plan:</label>
+    <textarea id="phq_plan" placeholder="Enter plan..."></textarea>
+    <div class="controls" style="margin-top:12px">
+      <button id="phq_generate" class="primary">Generate PDF</button>
+      <button id="phq_preview" class="ghost">Preview Text</button>
+    </div>
+    <pre id="phq_output"></pre>
   </div>
 
   <!-- Doctor Note -->
   <div id="doctorCard" class="card" style="margin-top:18px;display:none" aria-hidden="true">
     <h3 style="margin:0 0 6px">Doctor's Note Builder</h3>
-    <!-- Doctor form (unchanged) -->
-    ...
-  </div>
-
-  <!-- Hospital Visit -->
-  <div id="hospitalCard" class="card" style="margin-top:18px;display:none" aria-hidden="true">
-    <h2>Hospital Visit Summary</h2>
-
-    <label>Name:</label><input type="text" id="name" placeholder="Patient Name">
-    <label>DOB:</label><input type="date" id="dob">
-    <label>Gender Identity:</label><input type="text" id="gender" placeholder="Gender Identity">
-    <label>Scheduled Visits:</label><input type="text" id="scheduled">
-    <label>Date of Last Physical:</label><input type="date" id="lastPhysical">
-    <label>Visit Summary for Doctor:</label><input type="text" id="doctor">
-    <label>Reason for Visit:</label><textarea id="reason"></textarea>
-
-    <h3>Vitals</h3>
-    <div class="row">
-      <div class="col-1"><label>Height:</label><input type="text" id="height"></div>
-      <div class="col-1"><label>Weight:</label><input type="text" id="weight"></div>
-      <div class="col-1"><label>Temp:</label><input type="text" id="temp"></div>
+    <label>Patient Name:</label>
+    <input type="text" id="doc_patientName" placeholder="Enter patient name">
+    <div class="row" style="margin-top:6px">
+      <div class="col-1">
+        <label>Age:</label>
+        <input type="number" id="doc_age" min="0" max="120" placeholder="Age">
+      </div>
+      <div class="col-flex">
+        <label>Date of Visit:</label>
+        <input type="date" id="doc_date">
+      </div>
     </div>
-    <div class="row">
-      <div class="col-1"><label>BP:</label><input type="text" id="bp"></div>
-      <div class="col-1"><label>Pulse:</label><input type="text" id="pulse"></div>
-      <div class="col-1"><label>Resp:</label><input type="text" id="resp"></div>
+    <label>Provider (Name & Credentials):</label>
+    <input type="text" id="doc_provider" placeholder="Enter provider name & credentials">
+    <label>Illness / Diagnosis:</label>
+    <input type="text" id="doc_illness" placeholder="Enter illness">
+    <div class="row" style="margin-top:6px">
+      <div class="col-1">
+        <label>Start Date:</label>
+        <input type="date" id="doc_start">
+      </div>
+      <div class="col-1">
+        <label>End Date:</label>
+        <input type="date" id="doc_end">
+      </div>
+      <div class="col-1">
+        <label>Return Date:</label>
+        <input type="date" id="doc_return">
+      </div>
     </div>
-
-    <h3>Labs</h3>
-    <label>Status:</label><input type="text" id="labStatus" placeholder="Completed / Pending">
-    <label>Result 1:</label><input type="text" id="labResult1"><label>Facility 1:</label><input type="text" id="labFacility1" value="Grey Sloan University Laboratory">
-    <label>Result 2:</label><input type="text" id="labResult2"><label>Facility 2:</label><input type="text" id="labFacility2" value="Grey Sloan University Laboratory">
-
-    <label>Diagnosis:</label><textarea id="diag">Based on the clinical evaluation and available investigations, the patient’s condition has been thoroughly assessed. Appropriate diagnosis has been made, and a management plan has been outlined accordingly.</textarea>
-    <label>Plan:</label><textarea id="plan"></textarea>
-
-    <div class="controls">
-      <button id="hospitalPreview" class="ghost">Preview Text</button>
-      <button id="hospitalGenerate" class="primary">Generate PDF</button>
+    <div class="controls" style="margin-top:12px">
+      <button id="doc_generate" class="primary">Generate PDF</button>
+      <button id="doc_preview" class="ghost">Preview Text</button>
     </div>
-
-    <pre id="hospitalOutput"></pre>
+    <pre id="doc_output"></pre>
   </div>
 
 </div>
 
 <script>
 /* ---------- Accounts & Access ---------- */
-const ACCOUNTS = { ... } // same as before
+const ACCOUNTS = {
+  'nmccgsuh': { pw:'15358', provider: 'Dr. Nicolas McCarthy MD PhD FACS', access: {gad:true, phq:true, doc:true} },
+  'mjohn':    { pw:'mj15358', provider: 'Dr. Martha Johnson DO', access: {gad:true, phq:true, doc:true} },
+  'psych':    { pw:'psychgsuh', provider: null, access: {gad:true, phq:true, doc:false} },
+  'doctor':   { pw:'doctor', provider: null, access: {gad:false, phq:false, doc:true} }
+};
+const FORGOT_CODE = 'gsuhdoctor2585';
 
 /* ----- Elements ----- */
 const disclaimer = document.getElementById('disclaimer');
@@ -167,82 +226,350 @@ const logoutBtn = document.getElementById('logout');
 const btnGAD = document.getElementById('btnGAD');
 const btnPHQ = document.getElementById('btnPHQ');
 const btnDoctor = document.getElementById('btnDoctor');
-const btnHospital = document.getElementById('btnHospital');
 
 const gadCard = document.getElementById('gadCard');
 const phqCard = document.getElementById('phqCard');
 const doctorCard = document.getElementById('doctorCard');
-const hospitalCard = document.getElementById('hospitalCard');
 
-/* ---------- Tab Switch ---------- */
-function hideAllCards(){ gadCard.style.display='none'; phqCard.style.display='none'; doctorCard.style.display='none'; hospitalCard.style.display='none';
-  btnGAD.classList.remove('active'); btnPHQ.classList.remove('active'); btnDoctor.classList.remove('active'); btnHospital.classList.remove('active'); }
+/* ----- Disclaimer flow ----- */
+acceptDisclaimer.addEventListener('click', ()=>{
+  disclaimer.style.display = 'none';
+  loginWrap.style.display = 'flex';
+  loginWrap.setAttribute('aria-hidden','false');
+  loginUser.focus();
+});
 
-btnGAD.onclick=()=>{ hideAllCards(); gadCard.style.display='block'; btnGAD.classList.add('active'); }
-btnPHQ.onclick=()=>{ hideAllCards(); phqCard.style.display='block'; btnPHQ.classList.add('active'); }
-btnDoctor.onclick=()=>{ hideAllCards(); doctorCard.style.display='block'; btnDoctor.classList.add('active'); }
-btnHospital.onclick=()=>{ hideAllCards(); hospitalCard.style.display='block'; btnHospital.classList.add('active'); }
+/* ----- Login / Session ----- */
+function showLogin(){ loginWrap.style.display='flex'; app.style.display='none'; loginWrap.setAttribute('aria-hidden','false'); loginUser.focus(); }
+function showAppFor(user){
+  loginWrap.style.display='none'; app.style.display='block'; loginWrap.setAttribute('aria-hidden','true');
+  // Setup nav visibility based on access
+  const access = ACCOUNTS[user].access;
+  btnGAD.style.display = access.gad ? 'inline-block' : 'none';
+  btnPHQ.style.display = access.phq ? 'inline-block' : 'none';
+  btnDoctor.style.display = access.doc ? 'inline-block' : 'none';
+  // choose default tab (first available)
+  if(access.gad) selectTab('gad');
+  else if(access.phq) selectTab('phq');
+  else selectTab('doc');
+  // autofill provider if mapping has provider
+  autofillProviderFor(user);
+}
 
-/* ---------- Hospital Visit PDF ---------- */
-function getHospitalNote(){
-  return `
-Hospital Visit Summary
-====================
-Name: ${document.getElementById('name').value || '[Name]'}
-DOB: ${document.getElementById('dob').value || '[DOB]'}
-Gender Identity: ${document.getElementById('gender').value || '[Gender]'}
-Scheduled Visits: ${document.getElementById('scheduled').value || '[Scheduled Visits]'}
-Date of Last Physical: ${document.getElementById('lastPhysical').value || '[Last Physical]'}
-Visit Summary for Doctor: ${document.getElementById('doctor').value || '[Visit Summary]'}
-Reason for Visit: ${document.getElementById('reason').value || '[Reason]'}
+function authenticate(){
+  const u = (loginUser.value||'').trim();
+  const p = (loginPass.value||'').trim();
+  if(!u){ alert('Enter username'); loginUser.focus(); return; }
+  const acct = ACCOUNTS[u];
+  if(acct && acct.pw === p){
+    sessionStorage.setItem('psych_user', u);
+    loginUser.value=''; loginPass.value='';
+    showAppFor(u);
+  } else {
+    alert('Incorrect username or password.');
+  }
+}
 
-Vitals
-------
-Height: ${document.getElementById('height').value || '[Height]'}
-Weight: ${document.getElementById('weight').value || '[Weight]'}
-Temp: ${document.getElementById('temp').value || '[Temp]'}
-BP: ${document.getElementById('bp').value || '[BP]'}
-Pulse: ${document.getElementById('pulse').value || '[Pulse]'}
-Resp: ${document.getElementById('resp').value || '[Resp]'}
+function forgotFlow(){
+  const u = (loginUser.value||'').trim();
+  if(!u){ alert('Enter username first'); loginUser.focus(); return; }
+  if(!ACCOUNTS[u]){ alert('Unknown username'); return; }
+  const ans = prompt('Code?');
+  if(ans === null) return;
+  if(ans === FORGOT_CODE){
+    sessionStorage.setItem('psych_user', u);
+    loginUser.value=''; loginPass.value='';
+    showAppFor(u);
+  } else alert('Incorrect code.');
+}
 
-Labs
-----
-Status: ${document.getElementById('labStatus').value || '[Status]'}
-Result 1: ${document.getElementById('labResult1').value || '[Result1]'} | Facility: ${document.getElementById('labFacility1').value}
-Result 2: ${document.getElementById('labResult2').value || '[Result2]'} | Facility: ${document.getElementById('labFacility2').value}
+function autofillProviderFor(username){
+  const mapping = ACCOUNTS[username];
+  if(!mapping) return;
+  const prov = mapping.provider;
+  const gprov = document.getElementById('gad_provider');
+  const pprov = document.getElementById('phq_provider');
+  const dprov = document.getElementById('doc_provider');
+  if(prov){
+    if(gprov) gprov.value = prov;
+    if(pprov) pprov.value = prov;
+    if(dprov) dprov.value = prov;
+  } else {
+    if(gprov) gprov.value = '';
+    if(pprov) pprov.value = '';
+    if(dprov) dprov.value = '';
+  }
+}
 
-Diagnosis
----------
-${document.getElementById('diag').value}
+// Event wiring
+loginBtn.addEventListener('click', authenticate);
+forgotLink.addEventListener('click', forgotFlow);
+loginPass.addEventListener('keydown', e=>{ if(e.key==='Enter') authenticate(); });
+loginUser.addEventListener('keydown', e=>{ if(e.key==='Enter') loginPass.focus(); });
 
-Plan
-----
-${document.getElementById('plan').value}
+logoutBtn.addEventListener('click', ()=>{
+  sessionStorage.removeItem('psych_user');
+  showLogin();
+});
+
+/* ----- Tabs ----- */
+function selectTab(which){
+  btnGAD.classList.remove('active'); btnPHQ.classList.remove('active'); btnDoctor.classList.remove('active');
+  gadCard.style.display='none'; phqCard.style.display='none'; doctorCard.style.display='none';
+  if(which==='gad'){ btnGAD.classList.add('active'); gadCard.style.display='block'; }
+  if(which==='phq'){ btnPHQ.classList.add('active'); phqCard.style.display='block'; }
+  if(which==='doc'){ btnDoctor.classList.add('active'); doctorCard.style.display='block'; }
+}
+btnGAD.addEventListener('click', ()=> selectTab('gad'));
+btnPHQ.addEventListener('click', ()=> selectTab('phq'));
+btnDoctor.addEventListener('click', ()=> selectTab('doc'));
+
+/* ----- Severity mapping ----- */
+function gadScoreToSeverity(score){
+  const s = Number(score);
+  if (isNaN(s)) return null;
+  if (s >= 0 && s <= 4) return "Minimal/None";
+  if (s >= 5 && s <= 9) return "Mild";
+  if (s >= 10 && s <= 14) return "Moderate";
+  if (s >= 15 && s <= 21) return "Severe";
+  return null;
+}
+function phqScoreToSeverity(score){
+  const s = Number(score);
+  if (isNaN(s)) return null;
+  if (s >= 0 && s <= 4) return "Minimal/None";
+  if (s >= 5 && s <= 9) return "Mild";
+  if (s >= 10 && s <= 14) return "Moderate";
+  if (s >= 15 && s <= 19) return "Moderately Severe";
+  if (s >= 20 && s <= 27) return "Severe";
+  return null;
+}
+
+/* Hook score inputs */
+const gadScoreInput = document.getElementById('gad_score');
+const gadSeveritySelect = document.getElementById('gad_severity');
+if(gadScoreInput) gadScoreInput.addEventListener('input', ()=>{
+  const sev = gadScoreToSeverity(gadScoreInput.value);
+  if(sev !== null){
+    for(let i=0;i<gadSeveritySelect.options.length;i++){
+      if(gadSeveritySelect.options[i].value === sev){ gadSeveritySelect.selectedIndex = i; break; }
+    }
+  }
+});
+const phqScoreInput = document.getElementById('phq_score');
+const phqSeveritySelect = document.getElementById('phq_severity');
+if(phqScoreInput) phqScoreInput.addEventListener('input', ()=>{
+  const sev = phqScoreToSeverity(phqScoreInput.value);
+  if(sev !== null){
+    for(let i=0;i<phqSeveritySelect.options.length;i++){
+      if(phqSeveritySelect.options[i].value === sev){ phqSeveritySelect.selectedIndex = i; break; }
+    }
+  }
+});
+
+/* ----- PDF helper ----- */
+function writeNoteToPDF(doc, noteText, filenamePrefix){
+  doc.setFontSize(12);
+  let y = 12;
+  const lineHeight = 7;
+  const leftMargin = 12;
+  noteText.split("\n").forEach(line=>{
+    const wrapped = doc.splitTextToSize(line, 180);
+    doc.text(wrapped, leftMargin, y);
+    y += lineHeight * wrapped.length;
+    if(y > 280){ doc.addPage(); y = 12; }
+  });
+  const safe = filenamePrefix.replace(/[^a-z0-9_\-]/gi,'_').slice(0,40) || 'note';
+  doc.save(`${safe}.pdf`);
+}
+
+/* ----- GAD generate/preview ----- */
+document.getElementById('gad_generate').addEventListener('click', ()=>{
+  const name = document.getElementById('gad_patientName').value || "[Name/ID]";
+  const age = document.getElementById('gad_age').value || "[Age]";
+  const date = document.getElementById('gad_date').value || new Date().toLocaleDateString();
+  const score = document.getElementById('gad_score').value || "[insert score]";
+  const severity = document.getElementById('gad_severity').value;
+  const provider = document.getElementById('gad_provider').value || "Dr. [Name], MD";
+  const report = document.getElementById('gad_report').value || "PATIENT REPORT GOES HERE";
+  const plan = document.getElementById('gad_plan').value || "PLAN GOES HERE";
+
+  const evaluation = `GAD-7 administered. Total score: ${score}.\nTHIS SCORE INDICATES [${severity.toUpperCase()}] ANXIETY`;
+
+  const note = `
+Clinical Tools — GAD-7 Note
+
+Patient: ${name}
+Age: ${age}
+Date: ${date}
+Provider: ${provider}
+
+Patient Report:
+${report}
+
+Evaluation:
+${evaluation}
+
+Plan:
+${plan}
   `;
-}
 
-document.getElementById('hospitalPreview').onclick=()=>{
-  document.getElementById('hospitalOutput').textContent = getHospitalNote();
-}
-
-document.getElementById('hospitalGenerate').onclick=()=>{
   const { jsPDF } = window.jspdf;
   const doc = new jsPDF();
-  doc.setFontSize(12);
-  const text = getHospitalNote();
-  const split = doc.splitTextToSize(text,180);
-  doc.text(split,14,14);
-  doc.save('Hospital_Visit_Summary.pdf');
-}
+  writeNoteToPDF(doc, note, `GAD7_${name}_${date}`);
+  document.getElementById('gad_output').textContent = note;
+});
+document.getElementById('gad_preview').addEventListener('click', ()=>{
+  const name = document.getElementById('gad_patientName').value || "[Name/ID]";
+  const age = document.getElementById('gad_age').value || "[Age]";
+  const date = document.getElementById('gad_date').value || new Date().toLocaleDateString();
+  const score = document.getElementById('gad_score').value || "[insert score]";
+  const severity = document.getElementById('gad_severity').value;
+  const provider = document.getElementById('gad_provider').value || "Dr. [Name], MD";
+  const report = document.getElementById('gad_report').value || "PATIENT REPORT GOES HERE";
+  const plan = document.getElementById('gad_plan').value || "PLAN GOES HERE";
 
-/* ---------- Log out ---------- */
-logoutBtn.onclick=()=>{ app.style.display='none'; loginWrap.style.display='block'; localStorage.removeItem('authenticated'); }
+  const evaluation = `GAD-7 administered. Total score: ${score}.\nTHIS SCORE INDICATES [${severity.toUpperCase()}] ANXIETY`;
 
-/* ---------- Disclaimer ---------- */
-acceptDisclaimer.onclick=()=>{
-  disclaimer.style.display='none';
-  loginWrap.style.display='block';
+  const note = `
+Clinical Tools — GAD-7 Note
+
+Patient: ${name}
+Age: ${age}
+Date: ${date}
+Provider: ${provider}
+
+Patient Report:
+${report}
+
+Evaluation:
+${evaluation}
+
+Plan:
+${plan}
+  `;
+  document.getElementById('gad_output').textContent = note;
+});
+
+/* ----- PHQ generate/preview ----- */
+document.getElementById('phq_generate').addEventListener('click', ()=>{
+  const name = document.getElementById('phq_patientName').value || "[Name/ID]";
+  const age = document.getElementById('phq_age').value || "[Age]";
+  const date = document.getElementById('phq_date').value || new Date().toLocaleDateString();
+  const score = document.getElementById('phq_score').value || "[insert score]";
+  const severity = document.getElementById('phq_severity').value;
+  const provider = document.getElementById('phq_provider').value || "Dr. [Name], MD";
+  const report = document.getElementById('phq_report').value || "PATIENT REPORT GOES HERE";
+  const plan = document.getElementById('phq_plan').value || "PLAN GOES HERE";
+
+  const evaluation = `PHQ-9-A administered. Total score: ${score}.\nTHIS SCORE INDICATES [${severity.toUpperCase()}] DEPRESSION`;
+
+  const note = `
+Clinical Tools — PHQ-A Note
+
+Patient: ${name}
+Age: ${age}
+Date: ${date}
+Provider: ${provider}
+
+Patient Report:
+${report}
+
+Evaluation:
+${evaluation}
+
+Plan:
+${plan}
+  `;
+
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF();
+  writeNoteToPDF(doc, note, `PHQ-A_${name}_${date}`);
+  document.getElementById('phq_output').textContent = note;
+});
+document.getElementById('phq_preview').addEventListener('click', ()=>{
+  const name = document.getElementById('phq_patientName').value || "[Name/ID]";
+  const age = document.getElementById('phq_age').value || "[Age]";
+  const date = document.getElementById('phq_date').value || new Date().toLocaleDateString();
+  const score = document.getElementById('phq_score').value || "[insert score]";
+  const severity = document.getElementById('phq_severity').value;
+  const provider = document.getElementById('phq_provider').value || "Dr. [Name], MD";
+  const report = document.getElementById('phq_report').value || "PATIENT REPORT GOES HERE";
+  const plan = document.getElementById('phq_plan').value || "PLAN GOES HERE";
+
+  const evaluation = `PHQ-9-A administered. Total score: ${score}.\nTHIS SCORE INDICATES [${severity.toUpperCase()}] DEPRESSION`;
+
+  const note = `
+Clinical Tools — PHQ-A Note
+
+Patient: ${name}
+Age: ${age}
+Date: ${date}
+Provider: ${provider}
+
+Patient Report:
+${report}
+
+Evaluation:
+${evaluation}
+
+Plan:
+${plan}
+  `;
+  document.getElementById('phq_output').textContent = note;
+});
+
+/* ----- Doctor Note generate/preview ----- */
+function formatMMDDYYYY(dateInput){
+  if(!dateInput) return "[MM-DD-YYYY]";
+  const d = new Date(dateInput);
+  if(isNaN(d)) return "[MM-DD-YYYY]";
+  const mm = String(d.getMonth()+1).padStart(2,'0');
+  const dd = String(d.getDate()).padStart(2,'0');
+  const yyyy = d.getFullYear();
+  return `${mm}-${dd}-${yyyy}`;
 }
+document.getElementById('doc_generate').addEventListener('click', ()=>{
+  const name = document.getElementById('doc_patientName').value || "[Name]";
+  const age = document.getElementById('doc_age').value || "[Age]";
+  const visitRaw = document.getElementById('doc_date').value;
+  const visit = formatMMDDYYYY(visitRaw);
+  const provider = document.getElementById('doc_provider').value || "Dr. [Name]";
+  const illness = document.getElementById('doc_illness').value || "[Illness]";
+  const start = formatMMDDYYYY(document.getElementById('doc_start').value);
+  const end = formatMMDDYYYY(document.getElementById('doc_end').value);
+  const ret = formatMMDDYYYY(document.getElementById('doc_return').value || document.getElementById('doc_end').value);
+
+  const note = `I, ${provider}, am writing this note to inform you that I have seen ${name} in my hospital on the day of ${visit}.\n\nTesting revealed ${name} has ${illness} and as ${name}'s healthcare provider I am recommending for ${name} to be excused from SCHOOL/WORK from the dates of ${start} - ${end} allowing ${name} to return on ${ret}.\n\nIf you require any additional information do not hesitate to contact me, thank you for understanding.\n\nSincerely,\n${provider}`;
+
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF();
+  writeNoteToPDF(doc, note, `DoctorNote_${name}_${visit}`);
+  document.getElementById('doc_output').textContent = note;
+});
+document.getElementById('doc_preview').addEventListener('click', ()=>{
+  const name = document.getElementById('doc_patientName').value || "[Name]";
+  const visitRaw = document.getElementById('doc_date').value;
+  const visit = formatMMDDYYYY(visitRaw);
+  const provider = document.getElementById('doc_provider').value || "Dr. [Name]";
+  const illness = document.getElementById('doc_illness').value || "[Illness]";
+  const start = formatMMDDYYYY(document.getElementById('doc_start').value);
+  const end = formatMMDDYYYY(document.getElementById('doc_end').value);
+  const ret = formatMMDDYYYY(document.getElementById('doc_return').value || document.getElementById('doc_end').value);
+
+  const note = `I, ${provider}, am writing this note to inform you that I have seen ${name} in my hospital on the day of ${visit}.\n\nTesting revealed ${name} has ${illness} and as ${name}'s healthcare provider I am recommending for ${name} to be excused from SCHOOL/WORK from the dates of ${start} - ${end} allowing ${name} to return on ${ret}.\n\nIf you require any additional information do not hesitate to contact me, thank you for understanding.\n\nSincerely,\n${provider}`;
+
+  document.getElementById('doc_output').textContent = note;
+});
+
+/* ----- Initialize on page load ----- */
+function checkSession(){
+  const u = sessionStorage.getItem('psych_user');
+  if(u && ACCOUNTS[u]) showAppFor(u);
+  else showLogin();
+}
+// run
+checkSession();
 </script>
 
 </body>
